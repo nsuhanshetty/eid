@@ -11,27 +11,17 @@ namespace eid
 {
     public partial class WinformUsermaster : WinformAbstract
     {
-        string qry ="";        
+        # region 'PropertiesAndVariables
+
+        string qry ="";
+        Common com = new Common();      
         DataTable dt = new DataTable();
         MysqlConn objData = new MysqlConn();
-        WinformMainmenu wfMain = new WinformMainmenu();
-        Common com = new Common();                                      
-
-        private bool mModify;
-        private bool modify
-        {
-            get
-            {
-                return mModify;
-            }
-            set
-            {
-                mModify = value;
-            }
-        }
+        WinformAbstract wfAbs = new WinformAbstract();
+        WinformMainmenu wfMain = new WinformMainmenu();                                               
 
         private bool mdelete;
-        private bool delete
+        private bool DeleteState
         {
             get
             {
@@ -42,6 +32,8 @@ namespace eid
                 mdelete = value;
             }
         }
+
+    # endregion 'PropertiesAndVariables
 
         public WinformUsermaster()
         {
@@ -57,18 +49,22 @@ namespace eid
 
         protected override void btnnew_Click(object sender, EventArgs e)
         {
+            //enable / Disable the controls
+            MenuMode(this, false);
             this.pnlUsrNew.Visible = true;
             this.GrbxNewUser.Enabled = true;
             this.pnlUsrView.Visible = false;
+            
             //all the checkbox are checked
-            LOADCHECKBX("");
+            LoadCheckBox("");
         }
 
         protected override void btnmodify_Click(object sender, EventArgs e)
         {
+            MenuMode(this, false);
             this.pnlUsrNew.Visible = false;
             this.pnlUsrView.Visible = true;
-            modify = true;
+            
             //load the datagrid
         }
 
@@ -76,7 +72,7 @@ namespace eid
         {
             this.pnlUsrNew.Visible = false;
             this.pnlUsrView.Visible = true;
-            delete = true;
+            DeleteState  = true;
             //load the datagrid with checkboxes
         }
 
@@ -104,11 +100,14 @@ namespace eid
             qry = "insert userprivilege(USPUSERNAME,USPPASSWORD,USPCREATEDBY,USPCREATEDON)values('" + txtUsrname.Text + "','" + txtPass.Text + "','" + User.UserId + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
             objData.executeQry(qry);
 
+            qry="Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
+            int USPUserid = (int) objData.returnFirstCell(qry);
+
             //save userAttribute into DB
-            if (modify != true)
+            if (wfAbs.MenuState != true)
                 for (int i = this.chklstbx.Items.Count - 1; i >= 0; i--)
                 {
-                    qry = "insert into userattribute(UAuserid,UAmenu,UAenable,UACREATEDBY,UACREATEDON,UAMODIFIEDBY,UAMODIFIEDon)values('" + User.UserId + "','" + ++i + "','" + this.chklstbx.GetItemCheckState(i) + "'," + com.qrytime("ins") + ")";
+                    qry = "insert into user_attribute(UA_user_id,UA_menu,UA_enable,UA_CREATEDBY,UA_CREATEDON,UA_MODIFIEDBY,UA_MODIFIEDon)values('" + USPUserid + "','" + i + "','" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("ins") + ")";
                     objData.executeQry(qry);
                     //status bar value inserted                   
                 }
@@ -117,30 +116,33 @@ namespace eid
                 //for updates
                 for (int i = this.chklstbx.Items.Count - 1; i >= 0; i--)
                 {
-                    qry = "update userattribute set UAenable='" + this.chklstbx.GetItemCheckState(i) + "'," + com.qrytime("upd", "UA") + " where  UAuserid='" + User.UserId + "' and UAmenu='" + ++i + "'";
+
+                    qry = "update userattribute set UAenable='" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("upd", "UA") + 
+                        " where  UAuserid='" + User.UserId + "' and UAmenu='" + i + "'";
                     objData.executeQry(qry);
                     //Status Bar values are updated.
                 }
+
             //Accessing the Status bar in Winform Abstract (Parent)                         
-            ((WinformAbstract)this.ParentForm).updateStatus("Values Saved");
+            updateStatus(this,"Values Saved");
 
             //Clear all Controls After Save
             com.clearcontrol(GrbxNewUser, false);
-            LOADCHECKBX("reset");
+            LoadCheckBox("reset");
             txtUsrname.Focus();
         }
 
         protected override void btncancel_Click(object sender, EventArgs e)
         {
             //check if on edit
-            if (com.controlisinedit(GrbxNewUser))
-            {
+            //if (com.controlisinedit(GrbxNewUser))
+            //{
 
-            }
-
+            //}
+            MenuMode(this, false);
         }
 
-        private void LOADCHECKBX(string rcvid)
+        private void LoadCheckBox(string rcvid)
         {
             int count = 0, menuno = 0;
             chklstbx.ColumnWidth = 350;

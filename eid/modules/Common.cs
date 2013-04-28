@@ -54,7 +54,7 @@ namespace eid
             }
         }
 
-        public bool controlisinedit( Control controls)
+        public bool controlisinedit( Control.ControlCollection controls)
         { 
             foreach (Control c in controls.OfType<TextBox>())
             {     
@@ -76,6 +76,7 @@ namespace eid
             else
                 return null;
          }
+
     }       
 
 }

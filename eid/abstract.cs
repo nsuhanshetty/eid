@@ -68,9 +68,9 @@ namespace eid
 
         }
 
-        public void updateStatus(string Status)
+        public void updateStatus(WinformAbstract frm, string Status)
         {
-            StatusStripLabel.Text = Status;
+            frm.StatusStripLabel.Text = Status;
         }
 
         protected void MenuMode(WinformAbstract frm , bool value)
