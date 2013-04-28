@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.pnlUsrView = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.lblMessage = new System.Windows.Forms.Label();
+            this.dgvView = new System.Windows.Forms.DataGridView();
             this.GrbxSrch = new System.Windows.Forms.GroupBox();
             this.txtlSrchUserName = new System.Windows.Forms.TextBox();
             this.lblSrchUserName = new System.Windows.Forms.Label();
@@ -44,7 +45,7 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.chklstbx = new System.Windows.Forms.CheckedListBox();
             this.pnlUsrView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvView)).BeginInit();
             this.GrbxSrch.SuspendLayout();
             this.pnlUsrNew.SuspendLayout();
             this.GrbxNewUser.SuspendLayout();
@@ -52,23 +53,34 @@
             // 
             // pnlUsrView
             // 
-            this.pnlUsrView.Controls.Add(this.dataGridView1);
+            this.pnlUsrView.Controls.Add(this.lblMessage);
+            this.pnlUsrView.Controls.Add(this.dgvView);
             this.pnlUsrView.Controls.Add(this.GrbxSrch);
             this.pnlUsrView.Location = new System.Drawing.Point(330, 81);
             this.pnlUsrView.Name = "pnlUsrView";
-            this.pnlUsrView.Size = new System.Drawing.Size(308, 339);
+            this.pnlUsrView.Size = new System.Drawing.Size(308, 379);
             this.pnlUsrView.TabIndex = 10;
             // 
-            // dataGridView1
+            // lblMessage
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 62);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(301, 274);
-            this.dataGridView1.TabIndex = 12;
+            this.lblMessage.AutoSize = true;
+            this.lblMessage.Location = new System.Drawing.Point(9, 62);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(0, 13);
+            this.lblMessage.TabIndex = 13;
+            // 
+            // dgvView
+            // 
+            this.dgvView.AllowUserToAddRows = false;
+            this.dgvView.AllowUserToDeleteRows = false;
+            this.dgvView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvView.Location = new System.Drawing.Point(4, 84);
+            this.dgvView.Name = "dgvView";
+            this.dgvView.ReadOnly = true;
+            this.dgvView.Size = new System.Drawing.Size(301, 292);
+            this.dgvView.TabIndex = 12;
+            this.dgvView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvView_CellContentClick);
+            this.dgvView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvView_DoubleClick);
             // 
             // GrbxSrch
             // 
@@ -87,6 +99,7 @@
             this.txtlSrchUserName.Name = "txtlSrchUserName";
             this.txtlSrchUserName.Size = new System.Drawing.Size(156, 20);
             this.txtlSrchUserName.TabIndex = 0;
+            this.txtlSrchUserName.TextChanged += new System.EventHandler(this.txtlSrchUserName_TextChanged);
             // 
             // lblSrchUserName
             // 
@@ -206,7 +219,8 @@
             this.Controls.SetChildIndex(this.pnlUsrView, 0);
             this.Controls.SetChildIndex(this.pnlUsrNew, 0);
             this.pnlUsrView.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.pnlUsrView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvView)).EndInit();
             this.GrbxSrch.ResumeLayout(false);
             this.GrbxSrch.PerformLayout();
             this.pnlUsrNew.ResumeLayout(false);
@@ -224,7 +238,7 @@
         private System.Windows.Forms.GroupBox GrbxSrch;
         private System.Windows.Forms.TextBox txtlSrchUserName;
         private System.Windows.Forms.Label lblSrchUserName;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvView;
         private System.Windows.Forms.Panel pnlUsrNew;
         private System.Windows.Forms.GroupBox GrbxNewUser;
         private System.Windows.Forms.TextBox txtPass;
@@ -235,5 +249,6 @@
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.CheckedListBox chklstbx;
         private System.Windows.Forms.Label lblFunction;
+        private System.Windows.Forms.Label lblMessage;
     }
 }

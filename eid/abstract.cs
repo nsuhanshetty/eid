@@ -95,5 +95,10 @@ namespace eid
         }
 
         #endregion 'Public Methods
+
+        protected virtual void btnexit_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

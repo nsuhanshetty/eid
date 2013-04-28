@@ -45,6 +45,10 @@ namespace eid
            // LOADCHECKBX();
             pnlUsrNew.Visible = false;
             pnlUsrView.Visible = false;
+
+            //set location of the pnlView
+            pnlUsrView.Location = new Point(12, 81);
+            this.Size = new Size(350, 524);
         }
 
         protected override void btnnew_Click(object sender, EventArgs e)
@@ -61,14 +65,14 @@ namespace eid
 
         protected override void btnmodify_Click(object sender, EventArgs e)
         {
-            MenuMode(this, false);
+            //MenuMode(this, false);
             this.pnlUsrNew.Visible = false;
             this.pnlUsrView.Visible = true;
 
-            //set location of the pnlView
-            
+            lblMessage.Text = "Click the Username to Modify the User Privleges.";
 
-            //load the datagrid
+            DeleteState = true;
+            LoadDGV();
         }
 
         protected override void btndelete_Click(object sender, EventArgs e)
@@ -76,7 +80,11 @@ namespace eid
             this.pnlUsrNew.Visible = false;
             this.pnlUsrView.Visible = true;
             DeleteState  = true;
+
+            lblMessage.Text = "Double Click the Username to delete the User.";
             //load the datagrid with checkboxes
+
+            LoadDGV();
         }
 
         protected override void btnsave_Click(object sender, EventArgs e)
@@ -194,11 +202,11 @@ namespace eid
                         else
                         {
                             //if user already exists,set according to his settings
-                            qry = "SELECT UAmenu,UAenable FROM userattribute WHERE UAuserid='" + rcvid + "'";
+                            qry = "SELECT UA_menu,UA_enable FROM user_attribute WHERE UA_user_id='" + rcvid + "'";
                             dt = objData.getDataTable(qry);
-                            chklstbx.Items.Add(chkname);
-                            //check if menuno corresponds to name
-                            chklstbx.SetItemChecked(menuno,(bool)dt.Rows[menuno][1]);
+
+                            //check if menuno corresponds to name 
+                            chklstbx.Items.Add(chkname, (CheckState)dt.Rows[menuno][1]);
                         }
                         menuno += 1;
                     }
@@ -206,7 +214,19 @@ namespace eid
                 else
                     return;
             }
-          }       
+          }
+
+        private void LoadDGV()
+        {
+            //load the datagrid
+            qry = "select USPUSERID, USPUSERNAME from userprivilege";
+            dt = objData.getDataTable(qry);
+            dt.Columns[0].Caption = "USER ID";
+            dt.Columns[0].Caption = "USER NAME";
+
+            this.dgvView.DataSource = dt.DefaultView;
+            dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
 
         private void chklstbx_leave(object sender, EventArgs e)
         {
@@ -244,6 +264,65 @@ namespace eid
                 //reflect values in user inherited status bar 
                 return;
             }
+        }
+
+        private void dgvView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (DeleteState)
+            {
+                dgvView_DoubleClick(sender, e);
+            }
+
+            //add username to text box
+            txtUsrname.Text=Convert.ToString(dgvView[1, e.RowIndex].Value);
+            txtConPass.Text = "";
+            txtPass.Text = "";
+            
+            //select the userid and loadCheckBox
+            LoadCheckBox(Convert.ToString(dgvView[0, e.RowIndex].Value));             
+            
+            //menustate close
+            MenuMode(this, false);
+
+            //pnlview 
+            pnlUsrView.Visible = false;
+
+            //pnlnew.visible = true
+            pnlUsrNew.Visible = true;
+        }
+
+        private void dgvView_DoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Do you want to delete " + Convert.ToString(dgvView[1, e.RowIndex].Value), "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (dr == DialogResult.No)
+            {
+                return;
+            }
+
+            //delete user
+            qry="update userprivilege set USPdeleted = -1 where USPUSERNAME='" +Convert.ToString(dgvView[1, e.RowIndex]) + "'";
+            objData.executeQry(qry);
+            
+            updateStatus(this, "User Deleted");
+        }
+
+        protected override void btnexit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void txtlSrchUserName_TextChanged(object sender, EventArgs e)
+        {
+            // fill with the user based onthe name
+            //load the datagrid
+            qry = "select USPUSERID, USPUSERNAME from userprivilege where USPUSERNAME like '"+ txtlSrchUserName.Text  + "%'";
+            dt = objData.getDataTable(qry);
+            dt.Columns[0].Caption = "USER ID";
+            dt.Columns[0].Caption = "USER NAME";
+
+            this.dgvView.DataSource = dt.DefaultView;
+            dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }

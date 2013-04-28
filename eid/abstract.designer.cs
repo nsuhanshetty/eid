@@ -341,6 +341,7 @@
             this.btnexit.Size = new System.Drawing.Size(36, 51);
             this.btnexit.Text = "Exit";
             this.btnexit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnexit.Click += new System.EventHandler(this.btnexit_Click);
             // 
             // StatusStrip
             // 
