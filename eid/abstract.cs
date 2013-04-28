@@ -21,6 +21,37 @@ namespace eid
         {        
             Menu=0, Search =1 , Save=2
         }
+
+        ///
+        /// retain below commentedline if the class 
+        ///
+        //public  bool MenuState
+        //{
+        //    get
+        //    {
+        //        return true;
+        //    }
+        //    set
+        //    {
+        //        // if menustate is true btn(new,modify,delete) is enabled
+        //        // else  btn(new,modify,delete) is disabled
+
+        //        if (value)
+        //        {
+        //            btnnew.Enabled = value;
+        //            btnmodify.Enabled = value;
+        //            btndelete.Enabled = value;
+
+        //            btnsave.Enabled = (!value);
+        //            btncancel.Enabled = (!value);
+
+        //            NewToolStripMenuItem.Enabled = value;
+        //            ModifyToolStripMenuItem.Enabled = value;
+        //            DeleteToolStripMenuItem.Enabled = value;
+        //        }
+        //    }
+        //}
+
         # endregion 'PublicConstructorAndVariables
 
         #region 'Public Methods
@@ -58,6 +89,28 @@ namespace eid
         {
             StatusStripLabel.Text = Status;
         }
+
+        protected bool MenuMode(WinformAbstract frm , bool value)
+        {
+            ///
+            /// The btn's in the tool strip and the Menustrip is enabled / disabled based on the value.
+            /// Bool : True/ False based on the state required by the form
+            /// frm : the child form
+            ///
+
+            frm.btnnew.Enabled = value;
+            frm.btnmodify.Enabled = value;
+            frm.btndelete.Enabled = value;
+
+            frm.btnsave.Enabled = (!value);
+            frm.btncancel.Enabled = (!value);
+
+            frm.NewToolStripMenuItem.Enabled = value;
+            frm.ModifyToolStripMenuItem.Enabled = value;
+            frm.DeleteToolStripMenuItem.Enabled = value;
+            return value;
+        }
+
         #endregion 'Public Methods
     }
 }

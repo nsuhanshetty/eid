@@ -366,6 +366,7 @@
             this.Controls.Add(this.ToolStrip1);
             this.Controls.Add(this.MenuStrip2);
             this.Name = "WinformAbstract";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MenuStrip2.ResumeLayout(false);
             this.MenuStrip2.PerformLayout();
