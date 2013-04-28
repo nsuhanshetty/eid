@@ -12,30 +12,48 @@ namespace eid
         {
             foreach (Control ctrol in container.Controls)
             {
-                // substitute with switch case
-                if (ctrol is TextBox)
+                switch (ctrol.Name.Substring(0,3).ToLower())
                 {
-                    TextBox txt = (TextBox)ctrol;
-                    txt.Text = "";
+                    case "txt":
+                        TextBox txt = (TextBox)ctrol;
+                        txt.Text = "";
+                        break;
+
+                    case "chk":
+                        CheckBox chkbx = (CheckBox)ctrol;
+                        chkbx.Checked = false;
+                        break;
+
+                    case "dtp":
+                        DateTimePicker dtp = (DateTimePicker)ctrol;
+                        dtp.Value = DateTime.Now;
+                        break;
                 }
 
-                if (ctrol is CheckBox)
-                {
-                    CheckBox chkbx = (CheckBox)ctrol;
-                    chkbx.Checked = false;
-                }
+                // //substitute with switch case
+                //if (ctrol is TextBox)
+                //{
+                //    TextBox txt = (TextBox)ctrol;
+                //    txt.Text = "";
+                //}
 
-                if (ctrol is ComboBox)
-                {
-                    ComboBox cbobx = (ComboBox)ctrol;
-                    cbobx.SelectedIndex = -1;
-                }
+                //if (ctrol is CheckBox)
+                //{
+                //    CheckBox chkbx = (CheckBox)ctrol;
+                //    chkbx.Checked = false;
+                //}
 
-                if (ctrol is DateTimePicker)
-                {
-                    DateTimePicker dtp = (DateTimePicker)ctrol;
-                    dtp.Value = DateTime.Now;
-                }
+                //if (ctrol is ComboBox)
+                //{
+                //    ComboBox cbobx = (ComboBox)ctrol;
+                //    cbobx.SelectedIndex = -1;
+                //}
+
+                //if (ctrol is DateTimePicker)
+                //{
+                //    DateTimePicker dtp = (DateTimePicker)ctrol;
+                //    dtp.Value = DateTime.Now;
+                //}
 
                 if (Recurse)
                 {
@@ -54,14 +72,33 @@ namespace eid
             }
         }
 
-        public bool controlisinedit( Control.ControlCollection controls)
-        { 
-            foreach (Control c in controls.OfType<TextBox>())
-            {     
-                  if (c.Text != "")
-                     return true;                     
-            }  
-      
+        public bool controlisinedit(Control controls, bool Recurse)
+        {
+            foreach (Control ctrol in controls.Controls)
+            {
+                switch (ctrol.Name.Substring(0,3).ToLower())
+                {
+                    case "txt":
+                        if (ctrol.Text != "")
+                            return true;
+                        break;
+                }
+               
+                if (Recurse)
+                {
+                    if (ctrol is Panel)
+                    {
+                        Panel pnl = (Panel)ctrol;
+                        clearcontrol(pnl, Recurse);
+                    }
+
+                    if (ctrol is GroupBox)
+                    {
+                        GroupBox grbx = (GroupBox)ctrol;
+                        clearcontrol(grbx, Recurse);
+                    }
+                }
+            }      
             //else
             return false;    
         }

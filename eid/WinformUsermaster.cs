@@ -64,7 +64,10 @@ namespace eid
             MenuMode(this, false);
             this.pnlUsrNew.Visible = false;
             this.pnlUsrView.Visible = true;
+
+            //set location of the pnlView
             
+
             //load the datagrid
         }
 
@@ -135,11 +138,19 @@ namespace eid
         protected override void btncancel_Click(object sender, EventArgs e)
         {
             //check if on edit
-            //if (com.controlisinedit(GrbxNewUser))
-            //{
+            if (com.controlisinedit(GrbxNewUser,false))
+            {
+                DialogResult dr = MessageBox.Show("Do you want to Exit","Exit",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                if (dr == DialogResult.No)
+                {                    
+                    return;
+                }
+                //if yes
+                com.clearcontrol(GrbxNewUser, true);
+            }
 
-            //}
-            MenuMode(this, false);
+            MenuMode(this, true);
+            pnlUsrNew.Visible = false;
         }
 
         private void LoadCheckBox(string rcvid)
@@ -214,7 +225,10 @@ namespace eid
         }
 
         private void txtUsrname_TextChanged(object sender, EventArgs e)
-        {            
+        {
+            //updating the status bar
+            updateStatus(this, "Waiting for User's Input....");
+
             if (string.IsNullOrEmpty(txtUsrname.Text))
                  return;
             
