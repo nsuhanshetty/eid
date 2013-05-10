@@ -71,7 +71,7 @@ namespace eid
 
             lblMessage.Text = "Click the Username to Modify the User Privleges.";
 
-            DeleteState = true;
+            DeleteState = false;
             LoadDGV();
         }
 
@@ -221,11 +221,21 @@ namespace eid
             //load the datagrid
             qry = "select USPUSERID, USPUSERNAME from userprivilege";
             dt = objData.getDataTable(qry);
-            dt.Columns[0].Caption = "USER ID";
-            dt.Columns[0].Caption = "USER NAME";
+
+            if (DeleteState)
+            {
+                //adding combobox to datatable
+                dt.Columns.Add(new DataColumn("Selected", typeof(bool)));
+                dt.Columns["Selected"].SetOrdinal(1);
+            }
 
             this.dgvView.DataSource = dt.DefaultView;
             dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            //If delete state is active then 2 else 1
+            int x = DeleteState ? 2 : 1;
+            dgvView.Columns[0].HeaderText = "ID";
+            dgvView.Columns[x].HeaderText = "NAME";
         }
 
         private void chklstbx_leave(object sender, EventArgs e)
@@ -270,8 +280,28 @@ namespace eid
         {
             if (DeleteState)
             {
-                dgvView_DoubleClick(sender, e);
-            }
+                //get the row no.
+                //convert the dgv cell to dgvcheckbox cell and 
+                //check if selected / checked
+                DataGridViewCheckBoxCell chkbx = (DataGridViewCheckBoxCell)dgvView.Rows[e.RowIndex].Cells["Selected"];
+                if (chkbx.Selected)
+                {
+                    DialogResult dr = MessageBox.Show("Do you want to delete " + Convert.ToString(dgvView.Rows[e.RowIndex].Cells["USPUSERNAME"].Value), "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (dr == DialogResult.No)
+                    {
+                        return;
+                    }
+
+                    //delete user
+                    qry = "update userprivilege set USPdeleted = 'Y' where USPUSERID='" + Convert.ToString(dgvView.Rows[e.RowIndex].Cells["USPUSERID"].Value) + "'";
+                    objData.executeQry(qry);
+
+                    updateStatus(this, "User Deleted");
+                    return;
+                }
+            }                      
+            
+            // on modify
 
             //add username to text box
             txtUsrname.Text=Convert.ToString(dgvView[1, e.RowIndex].Value);
@@ -289,23 +319,7 @@ namespace eid
 
             //pnlnew.visible = true
             pnlUsrNew.Visible = true;
-        }
-
-        private void dgvView_DoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DialogResult dr = MessageBox.Show("Do you want to delete " + Convert.ToString(dgvView[1, e.RowIndex].Value), "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-
-            if (dr == DialogResult.No)
-            {
-                return;
-            }
-
-            //delete user
-            qry="update userprivilege set USPdeleted = -1 where USPUSERNAME='" +Convert.ToString(dgvView[1, e.RowIndex]) + "'";
-            objData.executeQry(qry);
-            
-            updateStatus(this, "User Deleted");
-        }
+        }  
 
         protected override void btnexit_Click(object sender, EventArgs e)
         {
