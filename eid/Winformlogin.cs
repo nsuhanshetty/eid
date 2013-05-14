@@ -24,8 +24,8 @@ namespace eid
         int no_rows = 0;
         string qry = "";
         Object userId = null;
-        int index = 0;
-        int menuno = 1;
+        //int index = 0;
+        //int menuno = 1;
         DataTable dt = new DataTable();
         MysqlConn ObjData = new MysqlConn();
         WinformMainmenu wfMain = new WinformMainmenu();

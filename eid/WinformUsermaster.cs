@@ -33,6 +33,18 @@ namespace eid
             }
         }
 
+        private bool _update;
+        private bool UpdateState
+        {
+            get
+            {
+                return _update;
+            }
+            set
+            {
+                _update = value;
+            }
+        }
     # endregion 'PropertiesAndVariables
 
         public WinformUsermaster()
@@ -66,24 +78,26 @@ namespace eid
         protected override void btnmodify_Click(object sender, EventArgs e)
         {
             //MenuMode(this, false);
-            this.pnlUsrNew.Visible = false;
-            this.pnlUsrView.Visible = true;
-
-            lblMessage.Text = "Click the Username to Modify the User Privleges.";
-
             DeleteState = false;
+            txtlSrchUserName.Text = "";
+            this.pnlUsrNew.Visible = false;
+            this.pnlUsrView.Visible = true;         
+            
+            lblMessage.Text = "Double Click the Username to Modify the User Privleges.";
+                        
             LoadDGV();
         }
 
         protected override void btndelete_Click(object sender, EventArgs e)
         {
+            DeleteState = true;
+            txtlSrchUserName.Text = "";
             this.pnlUsrNew.Visible = false;
-            this.pnlUsrView.Visible = true;
-            DeleteState  = true;
-
+            this.pnlUsrView.Visible = true;           
+            
             lblMessage.Text = "Double Click the Username to delete the User.";
+            
             //load the datagrid with checkboxes
-
             LoadDGV();
         }
 
@@ -106,31 +120,40 @@ namespace eid
                 txtConPass.Text = string.Empty;
                 return;
             }
+            
+            qry = "Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
+                int USPUserid = (int)objData.returnFirstCell(qry);
 
-            //save user into DB
-            qry = "insert userprivilege(USPUSERNAME,USPPASSWORD,USPCREATEDBY,USPCREATEDON)values('" + txtUsrname.Text + "','" + txtPass.Text + "','" + User.UserId + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
-            objData.executeQry(qry);
+            if (UpdateState!=true)
+            {
+                //save user into DB
+                qry = "insert userprivilege(USPUSERNAME,USPPASSWORD,USPCREATEDBY,USPCREATEDON)values('" + txtUsrname.Text + "','" + txtPass.Text + "','" + User.UserId + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
+                objData.executeQry(qry);
 
-            qry="Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
-            int USPUserid = (int) objData.returnFirstCell(qry);
-
-            //save userAttribute into DB
-            if (wfAbs.MenuState != true)
+                //save userAttribute into DB
                 for (int i = this.chklstbx.Items.Count - 1; i >= 0; i--)
                 {
                     qry = "insert into user_attribute(UA_user_id,UA_menu,UA_enable,UA_CREATEDBY,UA_CREATEDON,UA_MODIFIEDBY,UA_MODIFIEDon)values('" + USPUserid + "','" + i + "','" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("ins") + ")";
                     objData.executeQry(qry);
                     //status bar value inserted                   
                 }
+            }
 
             else
                 //for updates
-                for (int i = this.chklstbx.Items.Count - 1; i >= 0; i--)
-                {
+                //save user into DB
 
-                    qry = "update userattribute set UAenable='" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("upd", "UA") + 
-                        " where  UAuserid='" + User.UserId + "' and UAmenu='" + i + "'";
+                qry = "update userprivilege set USPMODIFIEDBY='" + User.UserId + "',USPMODIFIEDON='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where USPUSERID='" + USPUserid +"'";
+            objData.executeQry(qry);
+                for (int i = this.chklstbx.Items.Count - 1; i >= 0; i--)
+                {                    
+                    qry = "update userattribute set UAenable='" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("upd", "UA") +
+                        " where  UAuserid='" + USPUserid + "' and UAmenu='" + i + "'";
                     objData.executeQry(qry);
+
+                    txtPass.Enabled = true;
+                    txtConPass.Enabled = true;
+                    UpdateState = false;
                     //Status Bar values are updated.
                 }
 
@@ -165,10 +188,19 @@ namespace eid
         {
             int count = 0, menuno = 0;
             chklstbx.ColumnWidth = 350;
-        
-            if (this.chklstbx.Items.Count != 0 && rcvid != "reset")
-               return;                   
-            
+
+            //clear checkbox before putting values into it.
+            chklstbx.Items.Clear();
+            chklstbx.CheckOnClick = true;
+
+            if (!(rcvid == "" || rcvid == "reset"))
+            {
+                dt.Clear();
+                //if user already exists,set according to his settings
+                qry = "SELECT UA_menu,UA_enable FROM user_attribute WHERE UA_user_id='" + rcvid + "'";
+                dt = objData.getDataTable(qry);
+            }
+
             //fetch the menu items and add it into checklistbox
             foreach (ToolStripMenuItem item in wfMain.Mainmenustrip.Items)
             {
@@ -190,7 +222,7 @@ namespace eid
                                chkname = item.Name + "....." + subitem.Name;
                                break;
                        }
-                       if (rcvid == "" || rcvid == "reset")
+                       if (dt.Rows.Count==0)
                         {
                             if (rcvid == "")
                                 // add the name only for new user
@@ -201,10 +233,6 @@ namespace eid
                         }
                         else
                         {
-                            //if user already exists,set according to his settings
-                            qry = "SELECT UA_menu,UA_enable FROM user_attribute WHERE UA_user_id='" + rcvid + "'";
-                            dt = objData.getDataTable(qry);
-
                             //check if menuno corresponds to name 
                             chklstbx.Items.Add(chkname, (CheckState)dt.Rows[menuno][1]);
                         }
@@ -219,23 +247,25 @@ namespace eid
         private void LoadDGV()
         {
             //load the datagrid
-            qry = "select USPUSERID, USPUSERNAME from userprivilege";
+            qry = "select USPUSERID, USPUSERNAME from userprivilege where USPDELETED='N'";
             dt = objData.getDataTable(qry);
 
+            /* ACTIVATE IF A CHECK BOX IS REQUIRED
             if (DeleteState)
             {
                 //adding combobox to datatable
                 dt.Columns.Add(new DataColumn("Selected", typeof(bool)));
                 dt.Columns["Selected"].SetOrdinal(1);
             }
+            */
 
             this.dgvView.DataSource = dt.DefaultView;
             dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             //If delete state is active then 2 else 1
-            int x = DeleteState ? 2 : 1;
+            //int x = DeleteState ? 2 : 1;
             dgvView.Columns[0].HeaderText = "ID";
-            dgvView.Columns[x].HeaderText = "NAME";
+            dgvView.Columns[1].HeaderText = "NAME";
         }
 
         private void chklstbx_leave(object sender, EventArgs e)
@@ -278,15 +308,16 @@ namespace eid
 
         private void dgvView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            DialogResult dr;
             if (DeleteState)
             {
                 //get the row no.
                 //convert the dgv cell to dgvcheckbox cell and 
                 //check if selected / checked
-                DataGridViewCheckBoxCell chkbx = (DataGridViewCheckBoxCell)dgvView.Rows[e.RowIndex].Cells["Selected"];
-                if (chkbx.Selected)
-                {
-                    DialogResult dr = MessageBox.Show("Do you want to delete " + Convert.ToString(dgvView.Rows[e.RowIndex].Cells["USPUSERNAME"].Value), "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+               // DataGridViewCheckBoxCell chkbx = (DataGridViewCheckBoxCell)dgvView.Rows[e.RowIndex].Cells["Selected"];
+                //if (chkbx.Selected)
+                //{
+                    dr = MessageBox.Show("Do you want to delete User " + Convert.ToString(dgvView.Rows[e.RowIndex].Cells["USPUSERNAME"].Value), "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                     if (dr == DialogResult.No)
                     {
                         return;
@@ -297,16 +328,26 @@ namespace eid
                     objData.executeQry(qry);
 
                     updateStatus(this, "User Deleted");
-                    return;
-                }
+                    LoadDGV();
+                //}
+                return;
             }                      
             
             // on modify
+             dr = MessageBox.Show("Do you want to Modify User " + Convert.ToString(dgvView.Rows[e.RowIndex].Cells["USPUSERNAME"].Value), "Delete User", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+             if (dr == DialogResult.No)
+             {
+                 return;
+             }
 
             //add username to text box
             txtUsrname.Text=Convert.ToString(dgvView[1, e.RowIndex].Value);
-            txtConPass.Text = "";
-            txtPass.Text = "";
+
+            qry = "select USPPASSWORD from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
+            txtConPass.Text = (string)objData.returnFirstCell(qry);
+            txtConPass.Enabled = false;
+            txtPass.Text = txtConPass.Text;
+            txtPass.Enabled = false;
             
             //select the userid and loadCheckBox
             LoadCheckBox(Convert.ToString(dgvView[0, e.RowIndex].Value));             
@@ -319,6 +360,8 @@ namespace eid
 
             //pnlnew.visible = true
             pnlUsrNew.Visible = true;
+
+            UpdateState = true;
         }  
 
         protected override void btnexit_Click(object sender, EventArgs e)

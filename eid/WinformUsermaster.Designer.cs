@@ -79,7 +79,7 @@
             this.dgvView.ReadOnly = true;
             this.dgvView.Size = new System.Drawing.Size(301, 292);
             this.dgvView.TabIndex = 12;
-            this.dgvView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvView_CellContentClick);            
+            this.dgvView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvView_CellContentClick);
             // 
             // GrbxSrch
             // 
