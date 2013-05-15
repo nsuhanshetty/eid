@@ -70,24 +70,26 @@ namespace eid
             //insert into the log table
             qry = "insert into log_table(LT_USER_ID,LT_DATE_ENTRY,LT_TIME_OF_ENTRY)values ('" + (int)userId + "','" + DateTime.Now.Date.ToString("yyyy-MM-dd") + "','" + DateTime.Now.ToShortTimeString() + "')";
             no_rows=ObjData.executeQry(qry);
-            
 
-            //collect respective user attributes 
-            //this.qry = "select UAmenu,UAenable from userattribute where UAuserid='" + userId + "'";
+            ////collect respective user attributes 
+            //this.qry = "select UA_menu,UA_enable from user_attribute where UA_user_id='" + userId + "'";
             //this.dt = ObjData.getDataTable(qry);
-            //foreach (ToolStripMenuItem item in wfMain.Mainmenustrip.Items)
-            // if (index < 3)
+            //foreach (ToolStripMenuItem item in wfMain.Mainmenustrip.Items.OfType<ToolStripMenuItem>())
+            //    if (index < 2)
             //    {
             //        index = index + 1;
-            //        foreach (ToolStripMenuItem subitem in item.DropDownItems)
+            //        foreach (ToolStripMenuItem subitem in item.DropDownItems.OfType<ToolStripMenuItem>())
             //        {
-            //            if ( item.Enabled == true && ((int)dt.Rows[this.menuno - 1].ItemArray[1] == -1) )
-            //                item.Enabled = true;                        
-            //            subitem.Visible = (bool)this.dt.Rows[menuno - 1].ItemArray[1];
-            //            menuno = menuno + 1;                       
+            //            //if (((int)dt.Rows[this.menuno - 1][1] == 1))
+            //            //    item.Enabled = true;
+            //            subitem.Enabled = Convert.ToBoolean(this.dt.Rows[menuno - 1][1]);
+            //            menuno = menuno + 1;
             //        }
-            //    }            
+            //    }
 
+            //enable submenu's in the mainform
+            wfMain.EnableMenu();            
+            this.Close();
         }
     }
 }

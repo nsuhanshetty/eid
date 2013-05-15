@@ -247,6 +247,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Menu";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.WinformMainmenu_Load);
             this.Mainmenustrip.ResumeLayout(false);
             this.Mainmenustrip.PerformLayout();
             this.ToolStrip1.ResumeLayout(false);

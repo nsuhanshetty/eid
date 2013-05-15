@@ -13,11 +13,18 @@ namespace eid
     public partial class WinformMainmenu : Form
     {
         private int childFormNumber = 0;
+        int index = 0;
+        int menuno = 1;
+        string qry = "";
+        DataTable dt = new DataTable();
+        MysqlConn ObjData = new MysqlConn();
 
         public WinformMainmenu()
         {
             InitializeComponent();
         }
+
+
 
         private void ShowNewForm(object sender, EventArgs e)
         {
@@ -114,6 +121,31 @@ namespace eid
         {
             WinformUsermaster wfUserMast = new WinformUsermaster();
             wfUserMast.ShowDialog();
+        }
+
+        private void WinformMainmenu_Load(object sender, EventArgs e)
+        {
+            Winformlogin login = new Winformlogin();
+            login.Show();            
+        }
+
+        public void EnableMenu()
+        {
+            //collect respective user attributes 
+            this.qry = "select UA_menu,UA_enable from user_attribute where UA_user_id='" + User.UserId + "'";
+            this.dt = ObjData.getDataTable(qry);
+            foreach (ToolStripMenuItem item in this.Mainmenustrip.Items.OfType<ToolStripMenuItem>())
+                if (index < 2)
+                {
+                    index = index + 1;
+                    foreach (ToolStripMenuItem subitem in item.DropDownItems.OfType<ToolStripMenuItem>())
+                    {
+                        //if (((int)dt.Rows[this.menuno - 1][1] == 1))
+                        //    item.Enabled = true;
+                        subitem.Enabled = Convert.ToBoolean(this.dt.Rows[menuno - 1][1]);
+                        menuno = menuno + 1;
+                    }
+                }            
         }
     }
 }

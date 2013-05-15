@@ -119,38 +119,42 @@ namespace eid
                 txtUsrname.Text = string.Empty;
                 txtConPass.Text = string.Empty;
                 return;
-            }
-            
-            qry = "Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
-                int USPUserid = (int)objData.returnFirstCell(qry);
+            }           
 
-            if (UpdateState!=true)
-            {
-                //save user into DB
-                qry = "insert userprivilege(USPUSERNAME,USPPASSWORD,USPCREATEDBY,USPCREATEDON)values('" + txtUsrname.Text + "','" + txtPass.Text + "','" + User.UserId + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
-                objData.executeQry(qry);
 
-                //save userAttribute into DB
-                for (int i = this.chklstbx.Items.Count - 1; i >= 0; i--)
+                if (UpdateState != true)
                 {
-                    qry = "insert into user_attribute(UA_user_id,UA_menu,UA_enable,UA_CREATEDBY,UA_CREATEDON,UA_MODIFIEDBY,UA_MODIFIEDon)values('" + USPUserid + "','" + i + "','" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("ins") + ")";
+                    //save user into DB
+                    qry = "insert userprivilege(USPUSERNAME,USPPASSWORD,USPCREATEDBY,USPCREATEDON)values('" + txtUsrname.Text + "','" + txtPass.Text + "','" + User.UserId + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
                     objData.executeQry(qry);
-                    //status bar value inserted                   
-                }
-            }
 
-            else
+                    qry = "Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
+                    int USPUserid = (int)objData.returnFirstCell(qry);
+
+                    //save userAttribute into DB
+                    for (int i = 0; i< this.chklstbx.Items.Count; i++)
+                    {
+                        qry = "insert into user_attribute(UA_user_id,UA_menu,UA_enable,UA_CREATEDBY,UA_CREATEDON,UA_MODIFIEDBY,UA_MODIFIEDon)values('" + USPUserid + "','" + i + "','" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("ins") + ")";
+                        objData.executeQry(qry);
+                        //status bar value inserted                   
+                    }
+                }
+
+                else
                 //for updates
                 //save user into DB
+                {
+                    qry = "Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
+                    int USPUserid = (int)objData.returnFirstCell(qry);
 
-                qry = "update userprivilege set USPMODIFIEDBY='" + User.UserId + "',USPMODIFIEDON='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where USPUSERID='" + USPUserid +"'";
-            objData.executeQry(qry);
-                for (int i = this.chklstbx.Items.Count - 1; i >= 0; i--)
-                {                    
-                    qry = "update userattribute set UAenable='" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("upd", "UA") +
-                        " where  UAuserid='" + USPUserid + "' and UAmenu='" + i + "'";
+                    qry = "update userprivilege set USPMODIFIEDBY='" + User.UserId + "',USPMODIFIEDON='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where USPUSERID='" + USPUserid + "'";
                     objData.executeQry(qry);
-
+                    for (int i = 0; i < this.chklstbx.Items.Count; i++)
+                    {
+                        qry = "update user_attribute set UA_enable='" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("upd", "UA_") +
+                            " where  UA_user_id='" + USPUserid + "' and UA_menu='" + i + "'";
+                        objData.executeQry(qry);
+                    }
                     txtPass.Enabled = true;
                     txtConPass.Enabled = true;
                     UpdateState = false;
@@ -162,7 +166,7 @@ namespace eid
 
             //Clear all Controls After Save
             com.clearcontrol(GrbxNewUser, false);
-            LoadCheckBox("reset");
+            LoadCheckBox("");
             txtUsrname.Focus();
         }
 
@@ -181,68 +185,15 @@ namespace eid
             }
 
             MenuMode(this, true);
+            txtConPass.Enabled = true;
+            txtPass.Enabled = true;
             pnlUsrNew.Visible = false;
         }
 
-        private void LoadCheckBox(string rcvid)
+        protected override void btnexit_Click(object sender, EventArgs e)
         {
-            int count = 0, menuno = 0;
-            chklstbx.ColumnWidth = 350;
-
-            //clear checkbox before putting values into it.
-            chklstbx.Items.Clear();
-            chklstbx.CheckOnClick = true;
-
-            if (!(rcvid == "" || rcvid == "reset"))
-            {
-                dt.Clear();
-                //if user already exists,set according to his settings
-                qry = "SELECT UA_menu,UA_enable FROM user_attribute WHERE UA_user_id='" + rcvid + "'";
-                dt = objData.getDataTable(qry);
-            }
-
-            //fetch the menu items and add it into checklistbox
-            foreach (ToolStripMenuItem item in wfMain.Mainmenustrip.Items)
-            {
-                if (count < 2 )
-                {    count = count + 1;
-                                    
-                    foreach (ToolStripMenuItem subitem in item.DropDownItems.OfType<ToolStripMenuItem>())
-                     {
-                       string chkname;
-                       switch (item.Name)
-                       {
-                           case "Utilities":
-                               chkname = item.Name + "........" + subitem.Name;
-                               break;
-                           case "Master":
-                               chkname = item.Name + "..........." + subitem.Name;
-                               break;
-                           default:
-                               chkname = item.Name + "....." + subitem.Name;
-                               break;
-                       }
-                       if (dt.Rows.Count==0)
-                        {
-                            if (rcvid == "")
-                                // add the name only for new user
-                                chklstbx.Items.Add(chkname, true);
-                            else
-                                //check state on reset
-                                chklstbx.SetItemChecked(menuno, true);
-                        }
-                        else
-                        {
-                            //check if menuno corresponds to name 
-                            chklstbx.Items.Add(chkname, (CheckState)dt.Rows[menuno][1]);
-                        }
-                        menuno += 1;
-                    }
-                   }
-                else
-                    return;
-            }
-          }
+            this.Close();
+        }
 
         private void LoadDGV()
         {
@@ -266,6 +217,69 @@ namespace eid
             //int x = DeleteState ? 2 : 1;
             dgvView.Columns[0].HeaderText = "ID";
             dgvView.Columns[1].HeaderText = "NAME";
+        }
+
+        private void LoadCheckBox(string rcvid)
+        {
+            int count = 0, menuno = 0;
+            chklstbx.ColumnWidth = 350;
+
+            //clear checkbox before putting values into it.
+            chklstbx.Items.Clear();
+            chklstbx.CheckOnClick = true;
+
+            dt.Clear();
+
+            if (!(rcvid == "" || rcvid == "reset"))
+            {
+                //if user already exists,set according to his settings
+                qry = "SELECT UA_menu,UA_enable FROM user_attribute WHERE UA_user_id='" + rcvid + "'";
+                dt = objData.getDataTable(qry);
+            }
+
+            //fetch the menu items and add it into checklistbox
+            foreach (ToolStripMenuItem item in wfMain.Mainmenustrip.Items)
+            {
+                if (count < 2)
+                {
+                    count = count + 1;
+
+                    foreach (ToolStripMenuItem subitem in item.DropDownItems.OfType<ToolStripMenuItem>())
+                    {
+                        string chkname;
+                        switch (item.Name)
+                        {
+                            case "Utilities":
+                                chkname = item.Name + "........" + subitem.Name;
+                                break;
+                            case "Master":
+                                chkname = item.Name + "..........." + subitem.Name;
+                                break;
+                            default:
+                                chkname = item.Name + "....." + subitem.Name;
+                                break;
+                        }
+                        if (dt.Rows.Count == 0)
+                        {
+                            if (rcvid == "")
+                                // add the name only for new user
+                                chklstbx.Items.Add(chkname, true);
+                            //else
+                            //    //check state on reset
+                            //    chklstbx.SetItemChecked(menuno, true);
+                        }
+                        else
+                        {
+                            //check if menuno corresponds to name 
+                            int a = (int)dt.Rows[menuno][1];
+                            chklstbx.Items.Add(chkname, (CheckState)dt.Rows[menuno][1]);
+                        }
+                        menuno += 1;
+                    }
+                }
+                else
+                    return;
+            }
         }
 
         private void chklstbx_leave(object sender, EventArgs e)
@@ -304,6 +318,19 @@ namespace eid
                 //reflect values in user inherited status bar 
                 return;
             }
+        }
+
+        private void txtlSrchUserName_TextChanged(object sender, EventArgs e)
+        {
+            // fill with the user based onthe name
+            //load the datagrid
+            qry = "select USPUSERID, USPUSERNAME from userprivilege where USPUSERNAME like '" + txtlSrchUserName.Text + "%' and uspdeleted='N'";
+            dt = objData.getDataTable(qry);
+            dt.Columns[0].Caption = "USER ID";
+            dt.Columns[0].Caption = "USER NAME";
+
+            this.dgvView.DataSource = dt.DefaultView;
+            dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void dgvView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -364,22 +391,5 @@ namespace eid
             UpdateState = true;
         }  
 
-        protected override void btnexit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void txtlSrchUserName_TextChanged(object sender, EventArgs e)
-        {
-            // fill with the user based onthe name
-            //load the datagrid
-            qry = "select USPUSERID, USPUSERNAME from userprivilege where USPUSERNAME like '"+ txtlSrchUserName.Text  + "%'";
-            dt = objData.getDataTable(qry);
-            dt.Columns[0].Caption = "USER ID";
-            dt.Columns[0].Caption = "USER NAME";
-
-            this.dgvView.DataSource = dt.DefaultView;
-            dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        }
     }
 }
