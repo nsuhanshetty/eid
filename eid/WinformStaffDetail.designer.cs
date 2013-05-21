@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WinformEmpReg));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Button1 = new System.Windows.Forms.Button();
+            this.PictureBox1 = new System.Windows.Forms.PictureBox();
             this.GrbContact = new System.Windows.Forms.GroupBox();
             this.txtMobNo = new System.Windows.Forms.TextBox();
             this.lblMobile = new System.Windows.Forms.Label();
@@ -39,22 +41,51 @@
             this.lblPresAdd = new System.Windows.Forms.Label();
             this.txtPermAdd = new System.Windows.Forms.TextBox();
             this.lblPermAdd = new System.Windows.Forms.Label();
-            this.Button1 = new System.Windows.Forms.Button();
-            this.PictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.lblName = new System.Windows.Forms.Label();
+            this.txtFthrName = new System.Windows.Forms.TextBox();
+            this.lblFthrName = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.GrbContact.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
+            this.GrbContact.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.Button1);
-            this.panel1.Controls.Add(this.PictureBox1);
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.GrbContact);
             this.panel1.Location = new System.Drawing.Point(12, 81);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(732, 364);
             this.panel1.TabIndex = 5;
+            // 
+            // Button1
+            // 
+            this.Button1.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button1.Location = new System.Drawing.Point(6, 131);
+            this.Button1.Name = "Button1";
+            this.Button1.Size = new System.Drawing.Size(130, 28);
+            this.Button1.TabIndex = 12;
+            this.Button1.Text = "UPLOAD PHOTO";
+            this.Button1.UseVisualStyleBackColor = false;
+            // 
+            // PictureBox1
+            // 
+            this.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
+            this.PictureBox1.Location = new System.Drawing.Point(6, 11);
+            this.PictureBox1.Name = "PictureBox1";
+            this.PictureBox1.Size = new System.Drawing.Size(128, 114);
+            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PictureBox1.TabIndex = 13;
+            this.PictureBox1.TabStop = false;
             // 
             // GrbContact
             // 
@@ -66,7 +97,7 @@
             this.GrbContact.Controls.Add(this.lblPresAdd);
             this.GrbContact.Controls.Add(this.txtPermAdd);
             this.GrbContact.Controls.Add(this.lblPermAdd);
-            this.GrbContact.Location = new System.Drawing.Point(143, 261);
+            this.GrbContact.Location = new System.Drawing.Point(5, 261);
             this.GrbContact.Name = "GrbContact";
             this.GrbContact.Size = new System.Drawing.Size(586, 100);
             this.GrbContact.TabIndex = 6;
@@ -139,27 +170,60 @@
             this.lblPermAdd.TabIndex = 70;
             this.lblPermAdd.Text = "Permanent Address";
             // 
-            // Button1
+            // groupBox1
             // 
-            this.Button1.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button1.Location = new System.Drawing.Point(2, 117);
-            this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(130, 28);
-            this.Button1.TabIndex = 12;
-            this.Button1.Text = "UPLOAD PHOTO";
-            this.Button1.UseVisualStyleBackColor = false;
+            this.groupBox1.Controls.Add(this.PictureBox1);
+            this.groupBox1.Controls.Add(this.Button1);
+            this.groupBox1.Location = new System.Drawing.Point(580, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(138, 166);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
             // 
-            // PictureBox1
+            // groupBox2
             // 
-            this.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
-            this.PictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(128, 114);
-            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PictureBox1.TabIndex = 13;
-            this.PictureBox1.TabStop = false;
+            this.groupBox2.Controls.Add(this.txtFthrName);
+            this.groupBox2.Controls.Add(this.lblFthrName);
+            this.groupBox2.Controls.Add(this.txtName);
+            this.groupBox2.Controls.Add(this.lblName);
+            this.groupBox2.Location = new System.Drawing.Point(5, 14);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(569, 155);
+            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "PERSONAL DETAILS";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(103, 22);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(187, 20);
+            this.txtName.TabIndex = 73;
+            // 
+            // lblName
+            // 
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(6, 25);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(72, 13);
+            this.lblName.TabIndex = 74;
+            this.lblName.Text = "Name (In Full)";
+            // 
+            // txtFthrName
+            // 
+            this.txtFthrName.Location = new System.Drawing.Point(103, 48);
+            this.txtFthrName.Name = "txtFthrName";
+            this.txtFthrName.Size = new System.Drawing.Size(187, 20);
+            this.txtFthrName.TabIndex = 75;
+            // 
+            // lblFthrName
+            // 
+            this.lblFthrName.AutoSize = true;
+            this.lblFthrName.Location = new System.Drawing.Point(6, 51);
+            this.lblFthrName.Name = "lblFthrName";
+            this.lblFthrName.Size = new System.Drawing.Size(75, 13);
+            this.lblFthrName.TabIndex = 76;
+            this.lblFthrName.Text = "Father\'s Name";
             // 
             // WinformEmpReg
             // 
@@ -172,9 +236,12 @@
             this.Load += new System.EventHandler(this.WinformStaffDetail_Load);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.GrbContact.ResumeLayout(false);
             this.GrbContact.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,5 +261,12 @@
         internal System.Windows.Forms.Label lblPermAdd;
         internal System.Windows.Forms.Button Button1;
         internal System.Windows.Forms.PictureBox PictureBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        internal System.Windows.Forms.TextBox txtName;
+        internal System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        internal System.Windows.Forms.TextBox txtFthrName;
+        internal System.Windows.Forms.Label lblFthrName;
     }
 }
