@@ -114,7 +114,8 @@ namespace eid
 
         private void Staffdetails_Click(object sender, EventArgs e)
         {
-
+            WinformEmpReg wfEmpReg = new WinformEmpReg();
+            wfEmpReg.Show();
         }
 
         private void UserMasterAccess_Click(object sender, EventArgs e)
