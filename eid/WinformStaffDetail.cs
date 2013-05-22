@@ -20,5 +20,10 @@ namespace eid
         {
 
         }
+
+        private void grbMartial_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

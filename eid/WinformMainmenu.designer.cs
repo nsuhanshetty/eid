@@ -77,7 +77,7 @@
             this.Exitmenu});
             this.Mainmenustrip.Location = new System.Drawing.Point(0, 0);
             this.Mainmenustrip.Name = "Mainmenustrip";
-            this.Mainmenustrip.Size = new System.Drawing.Size(749, 24);
+            this.Mainmenustrip.Size = new System.Drawing.Size(817, 24);
             this.Mainmenustrip.TabIndex = 4;
             this.Mainmenustrip.Text = "MenuStrip1";
             // 
@@ -218,7 +218,7 @@
             this.Loginbtn});
             this.ToolStrip1.Location = new System.Drawing.Point(0, 24);
             this.ToolStrip1.Name = "ToolStrip1";
-            this.ToolStrip1.Size = new System.Drawing.Size(749, 42);
+            this.ToolStrip1.Size = new System.Drawing.Size(817, 42);
             this.ToolStrip1.TabIndex = 6;
             this.ToolStrip1.Text = "ToolStrip1";
             // 
@@ -238,7 +238,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 461);
+            this.ClientSize = new System.Drawing.Size(817, 461);
             this.Controls.Add(this.ToolStrip1);
             this.Controls.Add(this.Mainmenustrip);
             this.IsMdiContainer = true;

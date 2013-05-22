@@ -29,9 +29,26 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WinformEmpReg));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.Button1 = new System.Windows.Forms.Button();
+            this.pnlStaff = new System.Windows.Forms.Panel();
+            this.grbPersonal = new System.Windows.Forms.GroupBox();
+            this.grbMartial = new System.Windows.Forms.GroupBox();
+            this.dtpDom = new System.Windows.Forms.DateTimePicker();
+            this.lblDom = new System.Windows.Forms.Label();
+            this.btnAttach = new System.Windows.Forms.Button();
+            this.grbgender = new System.Windows.Forms.GroupBox();
+            this.rdbSingle = new System.Windows.Forms.RadioButton();
+            this.rdbMarried = new System.Windows.Forms.RadioButton();
+            this.lblMartialStatus = new System.Windows.Forms.Label();
+            this.dtpDob = new System.Windows.Forms.DateTimePicker();
+            this.txtDobProof = new System.Windows.Forms.TextBox();
+            this.lblDob = new System.Windows.Forms.Label();
+            this.txtFthrName = new System.Windows.Forms.TextBox();
+            this.lblFthrName = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.lblName = new System.Windows.Forms.Label();
+            this.grpImage = new System.Windows.Forms.GroupBox();
             this.PictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Button1 = new System.Windows.Forms.Button();
             this.GrbContact = new System.Windows.Forms.GroupBox();
             this.txtMobNo = new System.Windows.Forms.TextBox();
             this.lblMobile = new System.Windows.Forms.Label();
@@ -41,40 +58,203 @@
             this.lblPresAdd = new System.Windows.Forms.Label();
             this.txtPermAdd = new System.Windows.Forms.TextBox();
             this.lblPermAdd = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.lblName = new System.Windows.Forms.Label();
-            this.txtFthrName = new System.Windows.Forms.TextBox();
-            this.lblFthrName = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.txtWifeName = new System.Windows.Forms.TextBox();
+            this.lblWifeName = new System.Windows.Forms.Label();
+            this.txtNoOfChild = new System.Windows.Forms.TextBox();
+            this.lblNoOfChild = new System.Windows.Forms.Label();
+            this.btnNoOfChildProof = new System.Windows.Forms.Button();
+            this.txtNoOfChildProof = new System.Windows.Forms.TextBox();
+            this.pnlStaff.SuspendLayout();
+            this.grbPersonal.SuspendLayout();
+            this.grbMartial.SuspendLayout();
+            this.grbgender.SuspendLayout();
+            this.grpImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.GrbContact.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // pnlStaff
             // 
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.GrbContact);
-            this.panel1.Location = new System.Drawing.Point(12, 81);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(732, 364);
-            this.panel1.TabIndex = 5;
+            this.pnlStaff.Controls.Add(this.grbPersonal);
+            this.pnlStaff.Controls.Add(this.grpImage);
+            this.pnlStaff.Controls.Add(this.GrbContact);
+            this.pnlStaff.Location = new System.Drawing.Point(0, 81);
+            this.pnlStaff.Name = "pnlStaff";
+            this.pnlStaff.Size = new System.Drawing.Size(766, 438);
+            this.pnlStaff.TabIndex = 5;
             // 
-            // Button1
+            // grbPersonal
             // 
-            this.Button1.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Button1.Location = new System.Drawing.Point(6, 131);
-            this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(130, 28);
-            this.Button1.TabIndex = 12;
-            this.Button1.Text = "UPLOAD PHOTO";
-            this.Button1.UseVisualStyleBackColor = false;
+            this.grbPersonal.Controls.Add(this.grbMartial);
+            this.grbPersonal.Controls.Add(this.btnAttach);
+            this.grbPersonal.Controls.Add(this.grbgender);
+            this.grbPersonal.Controls.Add(this.lblMartialStatus);
+            this.grbPersonal.Controls.Add(this.dtpDob);
+            this.grbPersonal.Controls.Add(this.txtDobProof);
+            this.grbPersonal.Controls.Add(this.lblDob);
+            this.grbPersonal.Controls.Add(this.txtFthrName);
+            this.grbPersonal.Controls.Add(this.lblFthrName);
+            this.grbPersonal.Controls.Add(this.txtName);
+            this.grbPersonal.Controls.Add(this.lblName);
+            this.grbPersonal.Location = new System.Drawing.Point(5, 3);
+            this.grbPersonal.Name = "grbPersonal";
+            this.grbPersonal.Size = new System.Drawing.Size(569, 252);
+            this.grbPersonal.TabIndex = 15;
+            this.grbPersonal.TabStop = false;
+            this.grbPersonal.Text = "PERSONAL DETAILS";
+            // 
+            // grbMartial
+            // 
+            this.grbMartial.Controls.Add(this.btnNoOfChildProof);
+            this.grbMartial.Controls.Add(this.txtNoOfChildProof);
+            this.grbMartial.Controls.Add(this.txtNoOfChild);
+            this.grbMartial.Controls.Add(this.lblNoOfChild);
+            this.grbMartial.Controls.Add(this.txtWifeName);
+            this.grbMartial.Controls.Add(this.lblWifeName);
+            this.grbMartial.Controls.Add(this.dtpDom);
+            this.grbMartial.Controls.Add(this.lblDom);
+            this.grbMartial.Location = new System.Drawing.Point(10, 131);
+            this.grbMartial.Name = "grbMartial";
+            this.grbMartial.Size = new System.Drawing.Size(527, 96);
+            this.grbMartial.TabIndex = 83;
+            this.grbMartial.TabStop = false;
+            this.grbMartial.Enter += new System.EventHandler(this.grbMartial_Enter);
+            // 
+            // dtpDom
+            // 
+            this.dtpDom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDom.Location = new System.Drawing.Point(103, 12);
+            this.dtpDom.Name = "dtpDom";
+            this.dtpDom.Size = new System.Drawing.Size(187, 20);
+            this.dtpDom.TabIndex = 81;
+            this.dtpDom.Value = new System.DateTime(2013, 5, 21, 8, 15, 0, 0);
+            // 
+            // lblDom
+            // 
+            this.lblDom.AutoSize = true;
+            this.lblDom.Location = new System.Drawing.Point(6, 18);
+            this.lblDom.Name = "lblDom";
+            this.lblDom.Size = new System.Drawing.Size(88, 13);
+            this.lblDom.TabIndex = 80;
+            this.lblDom.Text = "Date Of Marriage";
+            // 
+            // btnAttach
+            // 
+            this.btnAttach.Location = new System.Drawing.Point(439, 72);
+            this.btnAttach.Name = "btnAttach";
+            this.btnAttach.Size = new System.Drawing.Size(82, 23);
+            this.btnAttach.TabIndex = 82;
+            this.btnAttach.Text = "Attach Proof";
+            this.btnAttach.UseVisualStyleBackColor = true;
+            // 
+            // grbgender
+            // 
+            this.grbgender.Controls.Add(this.rdbSingle);
+            this.grbgender.Controls.Add(this.rdbMarried);
+            this.grbgender.Location = new System.Drawing.Point(103, 97);
+            this.grbgender.Name = "grbgender";
+            this.grbgender.Size = new System.Drawing.Size(187, 28);
+            this.grbgender.TabIndex = 81;
+            this.grbgender.TabStop = false;
+            // 
+            // rdbSingle
+            // 
+            this.rdbSingle.AutoSize = true;
+            this.rdbSingle.Location = new System.Drawing.Point(102, 9);
+            this.rdbSingle.Name = "rdbSingle";
+            this.rdbSingle.Size = new System.Drawing.Size(54, 17);
+            this.rdbSingle.TabIndex = 1;
+            this.rdbSingle.TabStop = true;
+            this.rdbSingle.Text = "Single";
+            this.rdbSingle.UseVisualStyleBackColor = true;
+            // 
+            // rdbMarried
+            // 
+            this.rdbMarried.AutoSize = true;
+            this.rdbMarried.Location = new System.Drawing.Point(19, 9);
+            this.rdbMarried.Name = "rdbMarried";
+            this.rdbMarried.Size = new System.Drawing.Size(60, 17);
+            this.rdbMarried.TabIndex = 0;
+            this.rdbMarried.TabStop = true;
+            this.rdbMarried.Text = "Married";
+            this.rdbMarried.UseVisualStyleBackColor = true;
+            // 
+            // lblMartialStatus
+            // 
+            this.lblMartialStatus.AutoSize = true;
+            this.lblMartialStatus.Location = new System.Drawing.Point(6, 108);
+            this.lblMartialStatus.Name = "lblMartialStatus";
+            this.lblMartialStatus.Size = new System.Drawing.Size(71, 13);
+            this.lblMartialStatus.TabIndex = 80;
+            this.lblMartialStatus.Text = "Martial Status";
+            // 
+            // dtpDob
+            // 
+            this.dtpDob.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDob.Location = new System.Drawing.Point(103, 74);
+            this.dtpDob.Name = "dtpDob";
+            this.dtpDob.Size = new System.Drawing.Size(187, 20);
+            this.dtpDob.TabIndex = 79;
+            this.dtpDob.Value = new System.DateTime(2013, 5, 21, 8, 15, 0, 0);
+            // 
+            // txtDobProof
+            // 
+            this.txtDobProof.Location = new System.Drawing.Point(307, 74);
+            this.txtDobProof.Name = "txtDobProof";
+            this.txtDobProof.Size = new System.Drawing.Size(126, 20);
+            this.txtDobProof.TabIndex = 77;
+            // 
+            // lblDob
+            // 
+            this.lblDob.AutoSize = true;
+            this.lblDob.Location = new System.Drawing.Point(6, 80);
+            this.lblDob.Name = "lblDob";
+            this.lblDob.Size = new System.Drawing.Size(71, 13);
+            this.lblDob.TabIndex = 78;
+            this.lblDob.Text = "Date Of Birth ";
+            // 
+            // txtFthrName
+            // 
+            this.txtFthrName.Location = new System.Drawing.Point(103, 49);
+            this.txtFthrName.Name = "txtFthrName";
+            this.txtFthrName.Size = new System.Drawing.Size(187, 20);
+            this.txtFthrName.TabIndex = 75;
+            // 
+            // lblFthrName
+            // 
+            this.lblFthrName.AutoSize = true;
+            this.lblFthrName.Location = new System.Drawing.Point(6, 51);
+            this.lblFthrName.Name = "lblFthrName";
+            this.lblFthrName.Size = new System.Drawing.Size(75, 13);
+            this.lblFthrName.TabIndex = 76;
+            this.lblFthrName.Text = "Father\'s Name";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(103, 22);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(187, 20);
+            this.txtName.TabIndex = 73;
+            // 
+            // lblName
+            // 
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(6, 25);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(72, 13);
+            this.lblName.TabIndex = 74;
+            this.lblName.Text = "Name (In Full)";
+            // 
+            // grpImage
+            // 
+            this.grpImage.Controls.Add(this.PictureBox1);
+            this.grpImage.Controls.Add(this.Button1);
+            this.grpImage.Location = new System.Drawing.Point(580, 3);
+            this.grpImage.Name = "grpImage";
+            this.grpImage.Size = new System.Drawing.Size(138, 166);
+            this.grpImage.TabIndex = 14;
+            this.grpImage.TabStop = false;
             // 
             // PictureBox1
             // 
@@ -86,6 +266,17 @@
             this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PictureBox1.TabIndex = 13;
             this.PictureBox1.TabStop = false;
+            // 
+            // Button1
+            // 
+            this.Button1.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Button1.Location = new System.Drawing.Point(6, 131);
+            this.Button1.Name = "Button1";
+            this.Button1.Size = new System.Drawing.Size(130, 28);
+            this.Button1.TabIndex = 12;
+            this.Button1.Text = "UPLOAD PHOTO";
+            this.Button1.UseVisualStyleBackColor = false;
             // 
             // GrbContact
             // 
@@ -170,78 +361,75 @@
             this.lblPermAdd.TabIndex = 70;
             this.lblPermAdd.Text = "Permanent Address";
             // 
-            // groupBox1
+            // txtWifeName
             // 
-            this.groupBox1.Controls.Add(this.PictureBox1);
-            this.groupBox1.Controls.Add(this.Button1);
-            this.groupBox1.Location = new System.Drawing.Point(580, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(138, 166);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
+            this.txtWifeName.Location = new System.Drawing.Point(103, 40);
+            this.txtWifeName.Name = "txtWifeName";
+            this.txtWifeName.Size = new System.Drawing.Size(187, 20);
+            this.txtWifeName.TabIndex = 82;
             // 
-            // groupBox2
+            // lblWifeName
             // 
-            this.groupBox2.Controls.Add(this.txtFthrName);
-            this.groupBox2.Controls.Add(this.lblFthrName);
-            this.groupBox2.Controls.Add(this.txtName);
-            this.groupBox2.Controls.Add(this.lblName);
-            this.groupBox2.Location = new System.Drawing.Point(5, 14);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(569, 155);
-            this.groupBox2.TabIndex = 15;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "PERSONAL DETAILS";
+            this.lblWifeName.AutoSize = true;
+            this.lblWifeName.Location = new System.Drawing.Point(6, 42);
+            this.lblWifeName.Name = "lblWifeName";
+            this.lblWifeName.Size = new System.Drawing.Size(67, 13);
+            this.lblWifeName.TabIndex = 83;
+            this.lblWifeName.Text = "Wife\'s Name";
             // 
-            // txtName
+            // txtNoOfChild
             // 
-            this.txtName.Location = new System.Drawing.Point(103, 22);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(187, 20);
-            this.txtName.TabIndex = 73;
+            this.txtNoOfChild.Location = new System.Drawing.Point(103, 69);
+            this.txtNoOfChild.Name = "txtNoOfChild";
+            this.txtNoOfChild.Size = new System.Drawing.Size(187, 20);
+            this.txtNoOfChild.TabIndex = 84;
             // 
-            // lblName
+            // lblNoOfChild
             // 
-            this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(6, 25);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(72, 13);
-            this.lblName.TabIndex = 74;
-            this.lblName.Text = "Name (In Full)";
+            this.lblNoOfChild.AutoSize = true;
+            this.lblNoOfChild.Location = new System.Drawing.Point(6, 71);
+            this.lblNoOfChild.Name = "lblNoOfChild";
+            this.lblNoOfChild.Size = new System.Drawing.Size(79, 13);
+            this.lblNoOfChild.TabIndex = 85;
+            this.lblNoOfChild.Text = "No. Of Children";
             // 
-            // txtFthrName
+            // btnNoOfChildProof
             // 
-            this.txtFthrName.Location = new System.Drawing.Point(103, 48);
-            this.txtFthrName.Name = "txtFthrName";
-            this.txtFthrName.Size = new System.Drawing.Size(187, 20);
-            this.txtFthrName.TabIndex = 75;
+            this.btnNoOfChildProof.Location = new System.Drawing.Point(429, 67);
+            this.btnNoOfChildProof.Name = "btnNoOfChildProof";
+            this.btnNoOfChildProof.Size = new System.Drawing.Size(82, 23);
+            this.btnNoOfChildProof.TabIndex = 87;
+            this.btnNoOfChildProof.Text = "Attach Proof";
+            this.btnNoOfChildProof.UseVisualStyleBackColor = true;
             // 
-            // lblFthrName
+            // txtNoOfChildProof
             // 
-            this.lblFthrName.AutoSize = true;
-            this.lblFthrName.Location = new System.Drawing.Point(6, 51);
-            this.lblFthrName.Name = "lblFthrName";
-            this.lblFthrName.Size = new System.Drawing.Size(75, 13);
-            this.lblFthrName.TabIndex = 76;
-            this.lblFthrName.Text = "Father\'s Name";
+            this.txtNoOfChildProof.Location = new System.Drawing.Point(297, 69);
+            this.txtNoOfChildProof.Name = "txtNoOfChildProof";
+            this.txtNoOfChildProof.Size = new System.Drawing.Size(126, 20);
+            this.txtNoOfChildProof.TabIndex = 86;
             // 
             // WinformEmpReg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 470);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(766, 546);
+            this.Controls.Add(this.pnlStaff);
             this.Name = "WinformEmpReg";
             this.Text = "Employee Registry";
             this.Load += new System.EventHandler(this.WinformStaffDetail_Load);
-            this.Controls.SetChildIndex(this.panel1, 0);
-            this.panel1.ResumeLayout(false);
+            this.Controls.SetChildIndex(this.pnlStaff, 0);
+            this.pnlStaff.ResumeLayout(false);
+            this.grbPersonal.ResumeLayout(false);
+            this.grbPersonal.PerformLayout();
+            this.grbMartial.ResumeLayout(false);
+            this.grbMartial.PerformLayout();
+            this.grbgender.ResumeLayout(false);
+            this.grbgender.PerformLayout();
+            this.grpImage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.GrbContact.ResumeLayout(false);
             this.GrbContact.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,7 +437,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlStaff;
         internal System.Windows.Forms.GroupBox GrbContact;
         internal System.Windows.Forms.TextBox txtMobNo;
         internal System.Windows.Forms.Label lblMobile;
@@ -261,12 +449,29 @@
         internal System.Windows.Forms.Label lblPermAdd;
         internal System.Windows.Forms.Button Button1;
         internal System.Windows.Forms.PictureBox PictureBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grbPersonal;
         internal System.Windows.Forms.TextBox txtName;
         internal System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpImage;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         internal System.Windows.Forms.TextBox txtFthrName;
         internal System.Windows.Forms.Label lblFthrName;
+        internal System.Windows.Forms.TextBox txtDobProof;
+        internal System.Windows.Forms.Label lblDob;
+        private System.Windows.Forms.DateTimePicker dtpDob;
+        internal System.Windows.Forms.Label lblMartialStatus;
+        private System.Windows.Forms.GroupBox grbgender;
+        private System.Windows.Forms.RadioButton rdbSingle;
+        private System.Windows.Forms.RadioButton rdbMarried;
+        private System.Windows.Forms.Button btnAttach;
+        private System.Windows.Forms.GroupBox grbMartial;
+        private System.Windows.Forms.DateTimePicker dtpDom;
+        internal System.Windows.Forms.Label lblDom;
+        internal System.Windows.Forms.TextBox txtWifeName;
+        internal System.Windows.Forms.Label lblWifeName;
+        internal System.Windows.Forms.TextBox txtNoOfChild;
+        internal System.Windows.Forms.Label lblNoOfChild;
+        private System.Windows.Forms.Button btnNoOfChildProof;
+        internal System.Windows.Forms.TextBox txtNoOfChildProof;
     }
 }
