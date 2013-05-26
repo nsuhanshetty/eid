@@ -105,5 +105,10 @@ namespace eid
         {
 
         }
+
+        private void tabPer_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

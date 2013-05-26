@@ -126,8 +126,8 @@ namespace eid
 
         private void WinformMainmenu_Load(object sender, EventArgs e)
         {
-            Winformlogin login = new Winformlogin();
-            login.Show();            
+            //Winformlogin login = new Winformlogin();
+            //login.Show();            
         }
 
         public void EnableMenu()
