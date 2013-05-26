@@ -19,11 +19,11 @@ namespace eid
         const String DBUpdate = "UPDATE";
         //ConnectionStringSettingsCollection settings = ConfigurationManager.ConnectionStrings;
 
-        ErrorDump ed = new ErrorDump();
+        static ErrorDump ed = new ErrorDump();
         # endregion 'PrivateVariables
 
         # region 'PublicSubsAndFunction
-        public MySqlConnection getCon()
+        public static MySqlConnection getCon()
         {
             try
             {
@@ -75,15 +75,15 @@ namespace eid
             }
         }
 
-        public DataTable getDataTable(String qry)
+        public static DataTable getDataTable(String qry)
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand(qry, getCon());
-                MySqlDataAdapter adptr = new MySqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
-
+                MySqlCommand cmd = new MySqlCommand(qry, getCon());
+                MySqlDataAdapter adptr = new MySqlDataAdapter(cmd);               
                 adptr.Fill(ds);
+                cmd.Connection.Close();
                 cmd.Dispose();
                 return ds.Tables[0];
             }
@@ -103,12 +103,16 @@ namespace eid
             }
         }
 
-        public object returnFirstCell(String qry)
+        public static object returnFirstCell(String qry)
         {
             try
             {
+                object obj = new object();
                 MySqlCommand cmd = new MySqlCommand(qry, getCon());
-                return cmd.ExecuteScalar();
+                obj= cmd.ExecuteScalar();
+                cmd.Connection.Close();
+                cmd.Dispose();
+                return obj;
             }
             catch (MySqlException ex)
             {
@@ -131,20 +135,19 @@ namespace eid
          {
         try
         {
+            int Count;
             StringBuilder Sb =new  StringBuilder();
-
             MySqlCommand cmd = new MySqlCommand(QryName);
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            
+            cmd.CommandType = CommandType.StoredProcedure;            
             cmd.Connection = getCon();
-
              foreach ( KeyValuePair<String, Object> keyval in dict)
             {
                 cmd.Parameters.AddWithValue("@" + keyval.Key, keyval.Value);
             }
-
-           return cmd.ExecuteNonQuery();
+             Count = cmd.ExecuteNonQuery();
+             cmd.Connection.Close();
+             cmd.Dispose();
+             return Count;
         }
         catch (MySqlException ex)
             {
@@ -162,12 +165,16 @@ namespace eid
         }
         }
 
-        public int executeQry(String Qry)
+        public static int executeQry(String Qry)
         {
             try
             {
+                int Count;
                 MySqlCommand cmd = new MySqlCommand(Qry, getCon());
-                return cmd.ExecuteNonQuery();
+                Count= cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+                cmd.Dispose();
+                return Count;
             }
 
             catch (MySqlException ex)

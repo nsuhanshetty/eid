@@ -16,7 +16,7 @@ namespace eid
         string qry ="";
         Common com = new Common();      
         DataTable dt = new DataTable();
-        MysqlConn objData = new MysqlConn();
+        //MysqlConn objData = new MysqlConn();
         WinformAbstract wfAbs = new WinformAbstract();
         WinformMainmenu wfMain = new WinformMainmenu();                                               
 
@@ -126,16 +126,16 @@ namespace eid
                 {
                     //save user into DB
                     qry = "insert userprivilege(USPUSERNAME,USPPASSWORD,USPCREATEDBY,USPCREATEDON)values('" + txtUsrname.Text + "','" + txtPass.Text + "','" + User.UserId + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "')";
-                    objData.executeQry(qry);
+                    MysqlConn.executeQry(qry);
 
                     qry = "Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
-                    int USPUserid = (int)objData.returnFirstCell(qry);
+                    int USPUserid = (int)MysqlConn.returnFirstCell(qry);
 
                     //save userAttribute into DB
                     for (int i = 0; i< this.chklstbx.Items.Count; i++)
                     {
                         qry = "insert into user_attribute(UA_user_id,UA_menu,UA_enable,UA_CREATEDBY,UA_CREATEDON,UA_MODIFIEDBY,UA_MODIFIEDon)values('" + USPUserid + "','" + i + "','" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("ins") + ")";
-                        objData.executeQry(qry);
+                        MysqlConn.executeQry(qry);
                         //status bar value inserted                   
                     }
                 }
@@ -145,15 +145,15 @@ namespace eid
                 //save user into DB
                 {
                     qry = "Select USPUSERID from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
-                    int USPUserid = (int)objData.returnFirstCell(qry);
+                    int USPUserid = (int)MysqlConn.returnFirstCell(qry);
 
                     qry = "update userprivilege set USPMODIFIEDBY='" + User.UserId + "',USPMODIFIEDON='" + DateTime.Now.ToString("yyyy-MM-dd") + "' where USPUSERID='" + USPUserid + "'";
-                    objData.executeQry(qry);
+                    MysqlConn.executeQry(qry);
                     for (int i = 0; i < this.chklstbx.Items.Count; i++)
                     {
                         qry = "update user_attribute set UA_enable='" + Convert.ToInt16(this.chklstbx.GetItemChecked(i)) + "'," + com.qrytime("upd", "UA_") +
                             " where  UA_user_id='" + USPUserid + "' and UA_menu='" + i + "'";
-                        objData.executeQry(qry);
+                        MysqlConn.executeQry(qry);
                     }
                     txtPass.Enabled = true;
                     txtConPass.Enabled = true;
@@ -199,7 +199,7 @@ namespace eid
         {
             //load the datagrid
             qry = "select USPUSERID, USPUSERNAME from userprivilege where USPDELETED='N'";
-            dt = objData.getDataTable(qry);
+            dt = MysqlConn.getDataTable(qry);
 
             /* ACTIVATE IF A CHECK BOX IS REQUIRED
             if (DeleteState)
@@ -234,7 +234,7 @@ namespace eid
             {
                 //if user already exists,set according to his settings
                 qry = "SELECT UA_menu,UA_enable FROM user_attribute WHERE UA_user_id='" + rcvid + "'";
-                dt = objData.getDataTable(qry);
+                dt = MysqlConn.getDataTable(qry);
             }
 
             //fetch the menu items and add it into checklistbox
@@ -308,7 +308,7 @@ namespace eid
             
             //Check if Username already exists
             qry = "select USPUSERNAME from userprivilege where USPUSERNAME = '" + txtUsrname + "'";
-            if (objData.returnFirstCell(qry) != null)
+            if (MysqlConn.returnFirstCell(qry) != null)
             {
                 MessageBox.Show("Username already Exists." + Environment.NewLine + "Please try again.", "Incorrect Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPass.Text = string.Empty;
@@ -325,7 +325,7 @@ namespace eid
             // fill with the user based onthe name
             //load the datagrid
             qry = "select USPUSERID, USPUSERNAME from userprivilege where USPUSERNAME like '" + txtlSrchUserName.Text + "%' and uspdeleted='N'";
-            dt = objData.getDataTable(qry);
+            dt = MysqlConn.getDataTable(qry);
             dt.Columns[0].Caption = "USER ID";
             dt.Columns[0].Caption = "USER NAME";
 
@@ -352,7 +352,7 @@ namespace eid
 
                     //delete user
                     qry = "update userprivilege set USPdeleted = 'Y' where USPUSERID='" + Convert.ToString(dgvView.Rows[e.RowIndex].Cells["USPUSERID"].Value) + "'";
-                    objData.executeQry(qry);
+                    MysqlConn.executeQry(qry);
 
                     updateStatus(this, "User Deleted");
                     LoadDGV();
@@ -371,7 +371,7 @@ namespace eid
             txtUsrname.Text=Convert.ToString(dgvView[1, e.RowIndex].Value);
 
             qry = "select USPPASSWORD from userprivilege where USPUSERNAME='" + txtUsrname.Text + "'";
-            txtConPass.Text = (string)objData.returnFirstCell(qry);
+            txtConPass.Text = (string)MysqlConn.returnFirstCell(qry);
             txtConPass.Enabled = false;
             txtPass.Text = txtConPass.Text;
             txtPass.Enabled = false;

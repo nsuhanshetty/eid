@@ -84,12 +84,12 @@
             this.lblOthrQual = new System.Windows.Forms.Label();
             this.txtEduQual = new System.Windows.Forms.TextBox();
             this.lblEduQual = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.grbLang = new System.Windows.Forms.GroupBox();
+            this.txttoSpeak = new System.Windows.Forms.TextBox();
             this.lblToSpeak = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txttoWrite = new System.Windows.Forms.TextBox();
             this.lblToWrite = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txttoRead = new System.Windows.Forms.TextBox();
             this.lblToRead = new System.Windows.Forms.Label();
             this.grbPersonal = new System.Windows.Forms.GroupBox();
             this.grbMartial = new System.Windows.Forms.GroupBox();
@@ -125,15 +125,15 @@
             this.lblPresAdd = new System.Windows.Forms.Label();
             this.txtPermAdd = new System.Windows.Forms.TextBox();
             this.lblPermAdd = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.btnPermProofAttach = new System.Windows.Forms.Button();
+            this.txtPermAddProof = new System.Windows.Forms.TextBox();
+            this.btnPresAddAttach = new System.Windows.Forms.Button();
+            this.txtPresAddProof = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPer.SuspendLayout();
             this.TabPro.SuspendLayout();
             this.grbRef.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grbLang.SuspendLayout();
             this.grbPersonal.SuspendLayout();
             this.grbMartial.SuspendLayout();
             this.grbgender.SuspendLayout();
@@ -149,22 +149,23 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 81);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(766, 539);
+            this.tabControl1.Size = new System.Drawing.Size(737, 539);
             this.tabControl1.TabIndex = 5;
             // 
             // tabPer
             // 
-            this.tabPer.Controls.Add(this.groupBox1);
+            this.tabPer.Controls.Add(this.grbLang);
             this.tabPer.Controls.Add(this.grbPersonal);
             this.tabPer.Controls.Add(this.grpImage);
             this.tabPer.Controls.Add(this.GrbContact);
             this.tabPer.Location = new System.Drawing.Point(4, 22);
             this.tabPer.Name = "tabPer";
             this.tabPer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPer.Size = new System.Drawing.Size(758, 513);
+            this.tabPer.Size = new System.Drawing.Size(729, 513);
             this.tabPer.TabIndex = 0;
             this.tabPer.Text = "Personal";
             this.tabPer.UseVisualStyleBackColor = true;
+            this.tabPer.Click += new System.EventHandler(this.tabPer_Click);
             // 
             // TabPro
             // 
@@ -184,7 +185,7 @@
             this.TabPro.Location = new System.Drawing.Point(4, 22);
             this.TabPro.Name = "TabPro";
             this.TabPro.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPro.Size = new System.Drawing.Size(758, 513);
+            this.TabPro.Size = new System.Drawing.Size(729, 513);
             this.TabPro.TabIndex = 1;
             this.TabPro.Text = "Professional";
             this.TabPro.UseVisualStyleBackColor = true;
@@ -647,27 +648,27 @@
             this.lblEduQual.TabIndex = 94;
             this.lblEduQual.Text = "Educational\r\n Qualification";
             // 
-            // groupBox1
+            // grbLang
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.lblToSpeak);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.lblToWrite);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.lblToRead);
-            this.groupBox1.Location = new System.Drawing.Point(8, 236);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(569, 109);
-            this.groupBox1.TabIndex = 108;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "LANGUAGE KNOWN";
+            this.grbLang.Controls.Add(this.txttoSpeak);
+            this.grbLang.Controls.Add(this.lblToSpeak);
+            this.grbLang.Controls.Add(this.txttoWrite);
+            this.grbLang.Controls.Add(this.lblToWrite);
+            this.grbLang.Controls.Add(this.txttoRead);
+            this.grbLang.Controls.Add(this.lblToRead);
+            this.grbLang.Location = new System.Drawing.Point(8, 236);
+            this.grbLang.Name = "grbLang";
+            this.grbLang.Size = new System.Drawing.Size(569, 109);
+            this.grbLang.TabIndex = 108;
+            this.grbLang.TabStop = false;
+            this.grbLang.Text = "LANGUAGE KNOWN";
             // 
-            // textBox1
+            // txttoSpeak
             // 
-            this.textBox1.Location = new System.Drawing.Point(92, 81);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(380, 20);
-            this.textBox1.TabIndex = 81;
+            this.txttoSpeak.Location = new System.Drawing.Point(92, 81);
+            this.txttoSpeak.Name = "txttoSpeak";
+            this.txttoSpeak.Size = new System.Drawing.Size(344, 20);
+            this.txttoSpeak.TabIndex = 81;
             // 
             // lblToSpeak
             // 
@@ -678,12 +679,12 @@
             this.lblToSpeak.TabIndex = 82;
             this.lblToSpeak.Text = "To Speak";
             // 
-            // textBox2
+            // txttoWrite
             // 
-            this.textBox2.Location = new System.Drawing.Point(92, 53);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(380, 20);
-            this.textBox2.TabIndex = 79;
+            this.txttoWrite.Location = new System.Drawing.Point(92, 53);
+            this.txttoWrite.Name = "txttoWrite";
+            this.txttoWrite.Size = new System.Drawing.Size(344, 20);
+            this.txttoWrite.TabIndex = 79;
             // 
             // lblToWrite
             // 
@@ -694,12 +695,12 @@
             this.lblToWrite.TabIndex = 80;
             this.lblToWrite.Text = "To Write";
             // 
-            // textBox3
+            // txttoRead
             // 
-            this.textBox3.Location = new System.Drawing.Point(92, 25);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(380, 20);
-            this.textBox3.TabIndex = 77;
+            this.txttoRead.Location = new System.Drawing.Point(92, 25);
+            this.txttoRead.Name = "txttoRead";
+            this.txttoRead.Size = new System.Drawing.Size(344, 20);
+            this.txttoRead.TabIndex = 77;
             // 
             // lblToRead
             // 
@@ -781,9 +782,9 @@
             // 
             // txtWifeName
             // 
-            this.txtWifeName.Location = new System.Drawing.Point(366, 19);
+            this.txtWifeName.Location = new System.Drawing.Point(339, 19);
             this.txtWifeName.Name = "txtWifeName";
-            this.txtWifeName.Size = new System.Drawing.Size(149, 20);
+            this.txtWifeName.Size = new System.Drawing.Size(176, 20);
             this.txtWifeName.TabIndex = 82;
             // 
             // lblWifeName
@@ -835,7 +836,7 @@
             // rdbSingle
             // 
             this.rdbSingle.AutoSize = true;
-            this.rdbSingle.Location = new System.Drawing.Point(87, 9);
+            this.rdbSingle.Location = new System.Drawing.Point(84, 9);
             this.rdbSingle.Name = "rdbSingle";
             this.rdbSingle.Size = new System.Drawing.Size(54, 17);
             this.rdbSingle.TabIndex = 1;
@@ -846,7 +847,7 @@
             // rdbMarried
             // 
             this.rdbMarried.AutoSize = true;
-            this.rdbMarried.Location = new System.Drawing.Point(4, 9);
+            this.rdbMarried.Location = new System.Drawing.Point(13, 9);
             this.rdbMarried.Name = "rdbMarried";
             this.rdbMarried.Size = new System.Drawing.Size(60, 17);
             this.rdbMarried.TabIndex = 0;
@@ -924,7 +925,7 @@
             // 
             this.grpImage.Controls.Add(this.PictureBox1);
             this.grpImage.Controls.Add(this.Button1);
-            this.grpImage.Location = new System.Drawing.Point(598, 51);
+            this.grpImage.Location = new System.Drawing.Point(583, 6);
             this.grpImage.Name = "grpImage";
             this.grpImage.Size = new System.Drawing.Size(138, 166);
             this.grpImage.TabIndex = 106;
@@ -954,10 +955,10 @@
             // 
             // GrbContact
             // 
-            this.GrbContact.Controls.Add(this.button3);
-            this.GrbContact.Controls.Add(this.textBox5);
-            this.GrbContact.Controls.Add(this.button2);
-            this.GrbContact.Controls.Add(this.textBox4);
+            this.GrbContact.Controls.Add(this.btnPresAddAttach);
+            this.GrbContact.Controls.Add(this.txtPresAddProof);
+            this.GrbContact.Controls.Add(this.btnPermProofAttach);
+            this.GrbContact.Controls.Add(this.txtPermAddProof);
             this.GrbContact.Controls.Add(this.txtMobNo);
             this.GrbContact.Controls.Add(this.lblMobile);
             this.GrbContact.Controls.Add(this.txtPhoneNo);
@@ -1040,43 +1041,43 @@
             this.lblPermAdd.TabIndex = 70;
             this.lblPermAdd.Text = "Permanent Address";
             // 
-            // button2
+            // btnPermProofAttach
             // 
-            this.button2.Location = new System.Drawing.Point(458, 55);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 23);
-            this.button2.TabIndex = 89;
-            this.button2.Text = "Attach Proof";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnPermProofAttach.Location = new System.Drawing.Point(458, 55);
+            this.btnPermProofAttach.Name = "btnPermProofAttach";
+            this.btnPermProofAttach.Size = new System.Drawing.Size(82, 23);
+            this.btnPermProofAttach.TabIndex = 89;
+            this.btnPermProofAttach.Text = "Attach Proof";
+            this.btnPermProofAttach.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // txtPermAddProof
             // 
-            this.textBox4.Location = new System.Drawing.Point(297, 57);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(151, 20);
-            this.textBox4.TabIndex = 88;
+            this.txtPermAddProof.Location = new System.Drawing.Point(297, 57);
+            this.txtPermAddProof.Name = "txtPermAddProof";
+            this.txtPermAddProof.Size = new System.Drawing.Size(151, 20);
+            this.txtPermAddProof.TabIndex = 88;
             // 
-            // button3
+            // btnPresAddAttach
             // 
-            this.button3.Location = new System.Drawing.Point(458, 122);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(82, 23);
-            this.button3.TabIndex = 91;
-            this.button3.Text = "Attach Proof";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnPresAddAttach.Location = new System.Drawing.Point(458, 122);
+            this.btnPresAddAttach.Name = "btnPresAddAttach";
+            this.btnPresAddAttach.Size = new System.Drawing.Size(82, 23);
+            this.btnPresAddAttach.TabIndex = 91;
+            this.btnPresAddAttach.Text = "Attach Proof";
+            this.btnPresAddAttach.UseVisualStyleBackColor = true;
             // 
-            // textBox5
+            // txtPresAddProof
             // 
-            this.textBox5.Location = new System.Drawing.Point(297, 124);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(151, 20);
-            this.textBox5.TabIndex = 90;
+            this.txtPresAddProof.Location = new System.Drawing.Point(297, 124);
+            this.txtPresAddProof.Name = "txtPresAddProof";
+            this.txtPresAddProof.Size = new System.Drawing.Size(151, 20);
+            this.txtPresAddProof.TabIndex = 90;
             // 
             // WinformEmpReg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 645);
+            this.ClientSize = new System.Drawing.Size(741, 645);
             this.Controls.Add(this.tabControl1);
             this.Name = "WinformEmpReg";
             this.Text = "Employee Registry";
@@ -1088,8 +1089,8 @@
             this.TabPro.PerformLayout();
             this.grbRef.ResumeLayout(false);
             this.grbRef.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grbLang.ResumeLayout(false);
+            this.grbLang.PerformLayout();
             this.grbPersonal.ResumeLayout(false);
             this.grbPersonal.PerformLayout();
             this.grbMartial.ResumeLayout(false);
@@ -1162,12 +1163,12 @@
         internal System.Windows.Forms.TextBox txtStateRef2;
         internal System.Windows.Forms.TextBox txtAbout;
         internal System.Windows.Forms.Label lblAbout;
-        private System.Windows.Forms.GroupBox groupBox1;
-        internal System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox grbLang;
+        internal System.Windows.Forms.TextBox txttoSpeak;
         internal System.Windows.Forms.Label lblToSpeak;
-        internal System.Windows.Forms.TextBox textBox2;
+        internal System.Windows.Forms.TextBox txttoWrite;
         internal System.Windows.Forms.Label lblToWrite;
-        internal System.Windows.Forms.TextBox textBox3;
+        internal System.Windows.Forms.TextBox txttoRead;
         internal System.Windows.Forms.Label lblToRead;
         private System.Windows.Forms.GroupBox grbPersonal;
         private System.Windows.Forms.GroupBox grbMartial;
@@ -1203,9 +1204,9 @@
         internal System.Windows.Forms.Label lblPresAdd;
         internal System.Windows.Forms.TextBox txtPermAdd;
         internal System.Windows.Forms.Label lblPermAdd;
-        private System.Windows.Forms.Button button3;
-        internal System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button button2;
-        internal System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button btnPresAddAttach;
+        internal System.Windows.Forms.TextBox txtPresAddProof;
+        private System.Windows.Forms.Button btnPermProofAttach;
+        internal System.Windows.Forms.TextBox txtPermAddProof;
     }
 }

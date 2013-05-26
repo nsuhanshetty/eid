@@ -57,7 +57,7 @@ namespace eid
             }
             else
             {               
-               userId = ObjData.returnFirstCell("select USPUSERID from userprivilege where USPUSERNAME='" + txtusernm.Text + "' and USPPASSWORD='" + txtpasswd.Text+"'");
+               userId = MysqlConn.returnFirstCell("select USPUSERID from userprivilege where USPUSERNAME='" + txtusernm.Text + "' and USPPASSWORD='" + txtpasswd.Text+"'");
                if (userId == null)
                {
                    MessageBox.Show("Username / Password is Incorrect." + Environment.NewLine + "Please try again.", "Incorrect Input", MessageBoxButtons.OK, MessageBoxIcon.Error);                   statusStrip1.Text = "Waiting for User's input...";
@@ -69,7 +69,7 @@ namespace eid
 
             //insert into the log table
             qry = "insert into log_table(LT_USER_ID,LT_DATE_ENTRY,LT_TIME_OF_ENTRY)values ('" + (int)userId + "','" + DateTime.Now.Date.ToString("yyyy-MM-dd") + "','" + DateTime.Now.ToShortTimeString() + "')";
-            no_rows=ObjData.executeQry(qry);
+            no_rows=MysqlConn.executeQry(qry);
 
             ////collect respective user attributes 
             //this.qry = "select UA_menu,UA_enable from user_attribute where UA_user_id='" + userId + "'";

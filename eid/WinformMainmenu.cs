@@ -134,7 +134,7 @@ namespace eid
         {
             //collect respective user attributes 
             this.qry = "select UA_menu,UA_enable from user_attribute where UA_user_id='" + User.UserId + "'";
-            this.dt = ObjData.getDataTable(qry);
+            this.dt = MysqlConn.getDataTable(qry);
             foreach (ToolStripMenuItem item in this.Mainmenustrip.Items.OfType<ToolStripMenuItem>())
                 if (index < 2)
                 {
